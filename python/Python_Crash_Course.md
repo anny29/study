@@ -48,6 +48,12 @@ list = ["aa", "bb"]
     + __pop()__,弹出末尾的元素,例如 `name = list.pop()`,也可以指定坐标,弹出指定元素
     + __remove()__,根据元素值来删除,例如`list.remove("aa")`
       
+### 3.3 列表排序
+* 改变列表元素顺序
+    + sort()，例如 `list.sort()`，可以指定reverse逆序，例如 `list.sort(reverse=True)`
+	+ reverse()，例如 `list.reverse()`，将列表中的元素逆序排列
+* 临时性排序，不改变元素顺序
+    + sorted()，例如`sorted(list)`	
 
 
 
