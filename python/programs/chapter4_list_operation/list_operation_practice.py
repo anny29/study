@@ -20,5 +20,21 @@ print(odd_numbers)
 for odd in odd_numbers:
     print(odd)
 
+#4-7 3的倍数
+print("\n4-7 3的倍数")    
+numbs = list(range(3, 31, 3))
+print(numbs)
+
+#4-8 4-9 立方
+print("\n4-8 立方")
+cubes = []
+for i in range(1, 11):
+    cubes.append(i ** 3)
+print(cubes) 
+
+print("\n4-9 列表解析")
+cubic_numbs = [value ** 3 for value in range(1, 11)]
+print(cubic_numbs)
+
 
     

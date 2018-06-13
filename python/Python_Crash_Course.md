@@ -54,6 +54,36 @@ list = ["aa", "bb"]
 	+ reverse()，例如 `list.reverse()`，将列表中的元素逆序排列
 * 临时性排序，不改变元素顺序
     + sorted()，例如`sorted(list)`	
+    
+## 第四章 操作列表
+### 4.1 遍历列表
+使用for来遍历,例如:
+```
+  for str in list:
+      print(str)
+```
+### 4.2 整数列表
+* 使用`list() range()`创建整数列表,例如创建1~10的整数列表:
+```
+numbs = list(range(1, 11))
+```
+range()的第三个参数可以用来指定步长,例如1~10的奇数列表:
+```
+odd_numbs = list(range(1, 11, 2))
+```
+* 使用统计方法,例如`min(list), max(list), sum(list)`等函数
+* __列表解析__,使用表达式和循环生成列表,例如创建1~10的平方数:
+```
+square = [value ** 2 for value in range(1, 11)]
+```
+
+### 4.3 切片
+从列表中取出子集,例如取头三个元素,后三个元素:
+```
+top_3 = numbs[0:3]
+last_3 = numbs[-3:]
+```
+    
 
 
 
