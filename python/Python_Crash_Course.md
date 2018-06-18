@@ -83,6 +83,12 @@ square = [value ** 2 for value in range(1, 11)]
 top_3 = numbs[0:3]
 last_3 = numbs[-3:]
 ```
+
+### 4.4 元组
+与列表基本一致,元组中的值不能改变,定义时用圆括号,例如:
+```
+food = ('apple', 'banana')
+```
     
 
 
