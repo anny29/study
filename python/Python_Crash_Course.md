@@ -89,6 +89,11 @@ last_3 = numbs[-3:]
 ```
 food = ('apple', 'banana')
 ```
+## 第五章 if语句
+### 5.2 条件测试
+布尔值的关键字为 `True`和`False`,条件运算符为`and` 或者 `or`
+### 5.3 if语句
+if语句的关键字为 `if` `elif` `else`
     
 
 
