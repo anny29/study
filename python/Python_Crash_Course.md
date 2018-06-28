@@ -94,6 +94,27 @@ food = ('apple', 'banana')
 布尔值的关键字为 `True`和`False`,条件运算符为`and` 或者 `or`
 ### 5.3 if语句
 if语句的关键字为 `if` `elif` `else`
+
+## 第六章 字典
+### 6.1 定义字典
+字典是键值对的集合,使用大括号定义,例如:
+```
+city = {"name": "Wuhan", "country": "China"}
+```
+### 6.2 使用字典
+* 访问字典中的值: `city["name"]`
+* 添加键值对: `city["fact"] = "home"`
+* 删除键值对: `del city["fact"]`
+
+### 6.3 遍历字典
+* 遍历键值对: 
+```
+for name, val in city.items()
+    print(name)
+    print(val)
+```
+* 遍历键: `for name in city.keys()`
+* 遍历值: `for val in city,values()`
     
 
 

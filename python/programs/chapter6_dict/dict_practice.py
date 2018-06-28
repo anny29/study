@@ -33,3 +33,15 @@ for person in persons:
 	else:
 		print("Hello " + person + ", what's your favorite language?")
 
+#6-11 城市
+print("\n6-11 城市")
+cities = {
+	"wuhan" : {"country": "China", "population": "14", "fact": "home"},
+	"tokyo": {"country": "Japan", "population": "2", "fact": "large"},
+	"newyork": {"country": "America", "population": "4", "fact": "rich"}
+}
+for city, info in cities.items():
+	print("City: " + city.title())
+	for key, val in info.items():
+		print(key + ": " + val)
+
