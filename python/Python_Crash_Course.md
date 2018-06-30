@@ -115,6 +115,30 @@ for name, val in city.items()
 ```
 * 遍历键: `for name in city.keys()`
 * 遍历值: `for val in city,values()`
+
+## 第七章 用户输入和while循环
+### 7.1 接收用户输入
+使用input()函数接收用户输入,例如:
+```
+  message = input("What's your name?")
+```
+### 7.2 while循环
+for循环一般应用于列表和字典的遍历,while用于对情况的判断,或者集合中的元素会变化时使用while.
+
+## 第八章 函数
+### 8.1 定义函数
+使用关键字def,例如:
+```
+def display_city(city_name. country, population = 100):
+    print(city_name + " " + country)
+```
+定义函数时可以指定参数的默认值,不传时就使用默认值.
+调用函数时可以使用定义时的参数顺序,也可以使用参数名称指定:
+```
+     display("武汉", "中国", 1000000)
+     display(city_name = "宜昌", country = "中国")
+```
+有返回值时在函数中加入`return`即可.
     
 
 
