@@ -139,6 +139,34 @@ def display_city(city_name. country, population = 100):
      display(city_name = "宜昌", country = "中国")
 ```
 有返回值时在函数中加入`return`即可.
+### 8.4 任意数量的参数
+当函数可以处理传入任意数量的参数时,可以在参数前加上*,例如:
+```
+def print_cars(*cars):
+    for car in cars:
+        print(car)
+```
+需要传入任意数量的键值对时,可以使用两个**,例如:
+```
+def dict_test(**car_infos):
+    for key, val in car_infos.items():
+        print(key + ":" + val)
+
+dict_test(model='corolla', color='white')        
+```
+### 8.6 导入其他模块的函数
+使用import导入,例如:
+```
+import module_name
+
+module_name.test()
+```
+导入模块中的函数,例如:
+```
+from module_name import test
+
+test()
+```
     
 
 

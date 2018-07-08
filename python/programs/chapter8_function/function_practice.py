@@ -1,3 +1,5 @@
+#import module_test
+from module_test import print_test
 #第八章 函数
 #8-1 打印T-shirt
 def make_shirt(msg = 'I love Python', size = 'L'):
@@ -36,4 +38,35 @@ while True:
 	
 	album_info = make_album(singer, album)
 	print(album_info)
-			
+
+#8-10 传递列表
+print("\n8-10 传递列表")	
+def make_great(magicians):
+	for i in range(len(magicians)):
+		magicians[i] = "the Great " + magicians[i]
+
+def show_magicians(magicians):
+	for magician in magicians:
+		print(magician)
+
+magicians = ['Liu Qian', 'David']
+make_great(magicians)
+show_magicians(magicians)
+
+#8-12 任意数量参数
+print("\n8-12 任意数量参数")
+def make_car(manufacturer, model, **car_infos):
+	car_info = {}
+	car_info['manufacturer'] = manufacturer
+	car_info['model'] = model
+	for key, val in car_infos.items():
+		car_info[key] = val
+	return car_info
+
+i8_info = make_car('bmw', 'i8', price='200w', color='white')
+print(i8_info)
+
+#8-17 导入其他模块函数
+print("\n8-17 导入其他模块函数")
+#module_test.print_test("导入其他模块函数")	
+print_test("引入模块中的函数")		
