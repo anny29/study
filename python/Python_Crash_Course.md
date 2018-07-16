@@ -167,6 +167,43 @@ from module_name import test
 
 test()
 ```
+## 第九章 类
+### 9.1 创建类
+创建类的语法如下:
+```
+class User():
+    def __init__(self, first_name, last_name):
+        self.first_name = first_name
+        self.last_name = last_name
+    
+    def greetUser(self):
+      print("hello " + self.first_name)
+```
+类的构造方法一般使用`__init__()`方法,属性没有单独声明,而是在构造方法中表示,一般用self表明加上属性赋值.在其他需要使用属性的方法中,参数中需要声明self.  
+创建类的实例,语法如下:
+```
+my_user = User("AA", "BB")
+my_user.greetUser()
+```
+### 9.3 继承
+继承的语法如下:
+```
+class Admin(User):
+    def __init__(self, first_name, last_name, admin_name):
+        super().__init__(first_name, last_name)
+        self.admin_name = admin_name
+```
+在类名后的括号中声明父类,在构造方法中,调用父类的构造方法.
+
+### 9.5 导入类
+导入其他模块中的类与导入函数类似,例如:
+```
+from collections import OrderedDict
+
+my_dict = OrderedDict()
+
+```
+
     
 
 
