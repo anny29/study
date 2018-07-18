@@ -195,7 +195,7 @@ class Admin(User):
 ```
 在类名后的括号中声明父类,在构造方法中,调用父类的构造方法.
 
-### 9.5 导入类
+### 9.4 导入类
 导入其他模块中的类与导入函数类似,例如:
 ```
 from collections import OrderedDict
