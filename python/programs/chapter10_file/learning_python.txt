@@ -1,0 +1,3 @@
+In Python you can get input.
+In Python you can print words.
+In Python you can read files.

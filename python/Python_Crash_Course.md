@@ -204,6 +204,33 @@ my_dict = OrderedDict()
 
 ```
 
+## 第十章 读写文件和异常
+### 10.1 读取文件
+* 读取整个文件至内存:
+```
+with open("test.txt") as file_object:
+    contens = file_object.read()
+```
+* 按行读取:
+```
+with open("test.txt") as file_object:
+     for line in file_object:
+         print(line)
+     
+     lines = file_object.readlines()
+```
+### 10.2 写文件
+```
+with open("test.txt", "w") as file_object:
+    file_object.write("123")
+```
+open方法的第二个参数:
+* `w`代表清空原有文件,写入内容
+* `a` 代表追加写入
+* `r+` 代表可以读可以写
+* `r` 代表只读
+不带参数时,默认只读
+
     
 
 
