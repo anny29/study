@@ -231,6 +231,30 @@ open方法的第二个参数:
 * `r` 代表只读
 不带参数时,默认只读
 
+### 10.3 异常
+异常的关键字为 `try except else`,例如:
+```
+input_msg = input("请输入一个数字:")
+try:
+    number = int(input_msg)
+except ValueError:
+    print("输入的并非一个数字")
+else:
+    print("输入的数字为:" + input_msg)    
+```
+else 可用于未发生异常的情况.继续向下执行代码,当有多个异常时,继续补充except其他异常
+
+### 10.4 使用json存储数据
+使用json的dump()存储文件,load()读取文件,例如:
+```
+import json
+
+test_dict = {'11':'22'}
+filename = 'test.json'
+with open(filename, 'w'):
+    json.dump(test_dict, filename)
+  
+```
     
 
 
