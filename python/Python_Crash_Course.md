@@ -255,6 +255,25 @@ with open(filename, 'w'):
     json.dump(test_dict, filename)
   
 ```
+## 第十一章 测试
+编写测试类,需要导入unittest模块,然后继承TestCase类,例如:
+```
+import unittest
+
+class TestEmployee(unnittest.TestCase):
+""" 测试员工类"""
+    def setUp(self):
+        """ 初始化方法,可以初始化部分需要重复构建的对象"""
+        self.emp = Employee("test")
+    
+    def test_greet(self):
+        """ 测试greet方法"""
+        asssertEqual(self.emp.name, "test")
+
+unittest.main()      
+```
+运行测试类,按最后一行,调用unittest的main()方法运行测试方法.   
+测试方法一般以test开头
     
 
 
