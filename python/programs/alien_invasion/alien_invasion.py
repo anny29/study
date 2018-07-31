@@ -1,4 +1,5 @@
 import pygame
+from pygame.sprite import Group
 
 from settings import Settings
 from ship import Ship
@@ -12,10 +13,18 @@ def run_game():
 	pygame.display.set_caption("Alien Invasion")
 	
 	ship = Ship(screen, ai_settings)
+	bullets = Group()
 	
 	while True:
-		gf.check_events(ship)
-		ship.update()		
-		gf.update_screen(ai_settings, screen, ship)
+		gf.check_events(ai_settings, screen, ship, bullets)
+		ship.update()
+		bullets.update()		
+		
+		#删除已消失的子弹
+		for bullet in bullets.copy():
+			if bullet.rect.bottom <= 0:
+				bullets.remove(bullet)
+		
+		gf.update_screen(ai_settings, screen, ship, bullets)
 			
 run_game()		
