@@ -33,4 +33,8 @@ class Ship():
 			self.center -= self.settings.ship_speed_factor
 		#根据self.center更新self.rect对象
 		self.rect.centerx = self.center
+	
+	def ship_center(self):
+		""" 将飞船放置到屏幕底部中央"""
+		self.center = self.screen_rect.centerx
 		 
