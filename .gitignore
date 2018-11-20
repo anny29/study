@@ -5,3 +5,10 @@
 
 #vs code
 **/.vscode/
+
+#idea
+**/.idea/
+*.iml
+
+#java
+*.class
