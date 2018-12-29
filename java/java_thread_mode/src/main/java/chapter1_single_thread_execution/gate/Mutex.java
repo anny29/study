@@ -13,21 +13,33 @@ import java.util.concurrent.Semaphore;
 @Slf4j
 public class Mutex {
 
-    private final Semaphore semaphore;
+    private long lock;
+    private Thread owner;
 
-    public Mutex() {
-        semaphore = new Semaphore(1);
-    }
-
-    public void lock() {
-        try {
-            semaphore.acquire();
-        } catch (InterruptedException e) {
-            log.error("获取信号量异常！", e);
+    public synchronized void lock() {
+        Thread me = Thread.currentThread();
+        if (lock > 0 && owner != me) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                log.error("获取锁异常，线程ID：{}", e, me.getId());
+            }
         }
+        assert lock == 0 || owner == me;
+        lock++;
+        owner = me;
     }
 
-    public void unlock() {
-        semaphore.release();
+    public synchronized void unlock() {
+        Thread me = Thread.currentThread();
+        if (lock == 0 || owner != me) {
+            return;
+        }
+        assert lock > 0 && owner == me;
+        lock--;
+        if (lock == 0) {
+            notifyAll();
+            owner = null;
+        }
     }
 }
