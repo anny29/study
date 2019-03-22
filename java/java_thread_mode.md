@@ -236,3 +236,156 @@ class Data {
 ### 3. 适用场景
 适用于读取操作多于写入操作的场景，例如缓存。
 
+## 第7章 Thread-per-Message模式
+### 1. 模式定义
+将方法调用放入到线程中执行，可以提高程序的响应性。
+```
+class Host {
+    private final Helper helper = new Helper();
+    
+    public void request() {
+        new Thread(new Runnable() {
+            @override
+            public void run() {
+                helper.execute();
+            }
+        }).start();
+    }
+}
+```
+
+### 2. 适用场景
+* 图形界面中的事件处理，例如点击按钮后的耗时事件
+* web服务器，收到请求后在新线程中处理请求
+
+### 3. java.util.concurrent包中创建线程、执行的类
+* 创建线程，可以实现ThreadFactory接口，实现创建线程的方法;
+* 线程的启动和执行，使用Executor和ExecutorService接口，实现类在Executors的方法中。
+
+## 第8章 Worker Thread模式
+### 1. 模式定义
+与生产者-消费者模式类似，客户线程往队列中添加任务，工作线程从队列中获取任务并执行。区别点在于工作线程用线程池维护，避免不断新建线程的开销。
+
+### 2. 适用场景
+* 图形界面时间分发器？
+* 需要快速响应的场景   
+
+Worker Thread模式是Thread-per-Message模式的另一种演变，工作线程有限，且在线程池中管理。两种模式都体现了调用、执行分离的思想。
+
+## 第9章 Future模式
+#### 1. 模式定义
+与Thread-per-Message模式 和 Worker Thread模式类似，都是使用线程来模拟异步操作，在主线程中立即返回得到返回值（Future），   
+主线程调用返回值的方法时，若果返回值还未准备好，则会先等待(wait())。   
+现实中的例子：去蛋糕店订蛋糕，蛋糕店会给顾客一张订货单，顾客收到单子后可以去做其他的事。当拿着单子去蛋糕店取蛋糕时，如果蛋糕还没好就继续等待，已好则获得蛋糕。
+* Future角色：
+```
+class FutureData implements Data {
+    private boolean ready = false;
+    private RealData realData;
+    
+    public synchronized String getContent() {
+        while (!ready) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+            
+            }
+            
+        }
+        return realData.getContent();
+    }
+    
+    public synchronized void setData(RealData realData) {
+        if (ready)
+            return;
+        this.realData = realData;
+        ready = true;
+        notifyAll()
+    }
+}
+```
+
+* Host角色：
+```
+class Host {
+    public Data request() {
+        FutureData futureData = new FutureData();
+        new Thread(new Runnable() {
+            @override
+            public void run() {
+                RealData realData = new RealData(); //耗时操作异步操作
+                futureData.setData(realData); //创建完毕后赋值
+                
+            }
+        }).start();
+        return futureData; //主线程立即获得返回值
+    }
+}
+```
+
+* Client角色：
+```
+    Data data = host.request();
+    data.getContent(); //在使用返回值的时候可能会等待
+```
+
+2 . concurrent包中的实现
+主要是Future<E>接口，和FutureTask<E>类，对期货对象进行了封装，配合Callable<E>接口和线程得到返回值。
+
+3. 适用场景
+* 对一些需要限制执行时间的异步任务，可以使用future模式，超时后则会抛出异常。
+
+## 第十章 Two-Phase Termination 模式
+
+### 1. 模式定义
+线程定义终止的方法，调用后停止执行，并执行清理工作。代码如下：
+```
+class TerminationThread extends Thread {
+
+    private volatile boolean shutdownRequested = false;
+    
+    @override
+    public void run() {
+        try {
+            while (!isShutdownRequested()) {
+                doWork();
+            }       
+        } catch (InterruptedException e) {
+        
+        } finally {
+            doShutdown()
+        }
+    }
+    
+    public boolean isShutdownRequested() {
+        return shutdownRequested;
+    }
+    
+    public void shutdownRequest() {
+        shutdownRequested = true;
+        interrupt();
+    }
+    
+    private void doWork() throws InterruptedException {
+        ...
+        sleep();
+    }
+    
+    private void doShutdown() {
+        ...
+    }
+}
+```
+
+### 2. 与ExecutorService 结合使用
+与线程池结合使用时，如果调用ExecutorService的shutdownNow()方法来中断任务，在自定义的任务中，shutdownRequest()中无需interrupt()。ExecutorService的shutdownNow()会调用任务的interrupt()。
+
+### 3. concurrent包中对线程协作的工具类 CountdownLatch，CyclicBarrier
+这两个工具类可以看作是对方法join()的加强，CountdownLatch允许等待任务执行多次，CyclicBarrier则允许多个线程间的等待。
+
+## 第十一章 Thread Specific Storage模式
+主要是对ThreadLoacal类的使用，ThreadLocal可以理解为一个Map，key是当前线程，value是要存储的对象。所以ThreadLocal<T>一般作为一个类的静态成员变量出现，作为一个全局的Map。
+
+## 第十二章 Active Object模式
+将其他线程的调用抽象为请求，放入到请求队列中，由调度线程统一处理。   
+在java.util.concurrent中ExecutorService将调度和请求队列的功能集中起来，Runnable和Callable来抽象请求。

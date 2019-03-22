@@ -7,7 +7,7 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @program: ClientThread
+ * @program: MakeStrClientThread
  * @description: 发送请求线程
  * @author: lian.zh
  * @create: 2019-01-04 15:32
