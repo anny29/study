@@ -11,74 +11,65 @@ logging.basicConfig(level=logging.DEBUG, format=' %(asctime)s - %(levelname)s - 
 class CreateAttrExcel():
     """根据表、字段信息创建实体属性excel"""
 
-    def __init__(self, table_info, attr_model_excel, parm_no, parm_nm, date, output_excel_path):
+    def __init__(self, parm_info, attr_model_excel, date, output_excel_path):
         """初始化方法
         参数：
-        table_info: 根据D模型excel读取的数据库表和字段信息对象
+        parm_info: 根据excel读取的参数数据库表和字段信息对象
         attr_model_excel: 实体属性模板excel文件路径
-        parm_no: 参数编号
-        parm_nm: 参数名称
         date: 上线日期
         output_excel_path: 输出的文件路径
        """
-        self.table_info = table_info
+        self.parm_info = parm_info
         self.attr_model_excel = attr_model_excel
-        self.parm_no = parm_no
-        self.parm_nm = parm_nm
         self.date = date
         self.output_excel_path = output_excel_path
     
     def write_attr_excel(self):
         """创建实体属性文件"""
         wb = openpyxl.load_workbook(self.attr_model_excel)
-        self.write_parm_info_sheet(wb['参数信息表'], self.table_info.table_chn_nm, self.table_info.table_eng_nm, self.parm_no)
-        self.write_attr_info_sheet(wb['实体属性'], self.table_info)
-        self.write_txn_info_sheet(wb['交易界面'], self.parm_no, self.parm_nm)
-        self.write_page_field_sheet(wb['页面栏位'], self.parm_no, self.parm_nm, self.table_info)
+        self.write_parm_info_sheet(wb['参数信息表'], self.parm_info)
+        self.write_attr_info_sheet(wb['实体属性'], self.parm_info)
+        self.write_txn_info_sheet(wb['交易界面'], self.parm_info)
+        self.write_page_field_sheet(wb['页面栏位'], self.parm_info)
     
-        output_excel_nm = '参数设计属性信息_' + self.date + '_' + self.parm_nm + '.xlsx'
+        output_excel_nm = '参数设计属性信息_' + self.date + '_' + self.parm_info.parm_nm + '.xlsx'
         logging.info('输出文件路径: ' + self.output_excel_path + output_excel_nm)
         wb.save(self.output_excel_path + output_excel_nm)
     
     @abc.abstractmethod
-    def write_parm_info_sheet(self, sheet, table_chn_nm, table_eng_nm, parm_no):
+    def write_parm_info_sheet(self, sheet, parm_info):
         """写入实体属性excel "参数信息表"sheet的内容
         参数：
             sheet: "参数信息"sheet
-            table_chn_nm：表中文名
-            table_eng_nm: 表英文名
-            parm_no: 参数编号
+            parm_info: 参数信息
         """
         pass
         
     
     @abc.abstractmethod
-    def write_attr_info_sheet(self, attr_sheet, table_info):
+    def write_attr_info_sheet(self, attr_sheet, parm_info):
         """写入实体属性excel "实体属性" sheet的内容
         参数：
             sheet: "实体属性" sheet
-            table_info: 根据D模型excel读取的数据库表和字段信息对象
+            parm_info: 根据excel读取的参数数据库表和字段信息对象
         """
         pass
     
     @abc.abstractmethod
-    def write_txn_info_sheet(self, txn_sheet, parm_no, parm_nm):
+    def write_txn_info_sheet(self, txn_sheet, parm_info):
         """写入"交易信息" SHEET
         参数：
             txn_sheet: 交易信息 sheet
-            parm_no: 参数编号
-            parm_nm: 参数名称
+            parm_info: 根据excel读取的参数数据库表和字段信息对象
         """
         pass
 
     @abc.abstractmethod
-    def write_page_field_sheet(self, page_sheet, parm_no, parm_nm, table_info):
+    def write_page_field_sheet(self, page_sheet, parm_info):
         """写入 "页面栏位" SHEET
         参数：
             page_sheet: 页面栏位 sheet
-            parm_no: 参数编号
-            parm_nm: 参数名称
-            table_info: 数据库D模型信息
+            parm_info: 根据excel读取的参数数据库表和字段信息对象
         """
         pass
             

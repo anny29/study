@@ -1,7 +1,8 @@
 #数据库表中的字段信息
 class FieldInfo():
 	"""D模型中的字段信息"""
-	def __init__(self, eng_nm, chn_nm, dict_no, db_type, length, is_key, is_nullable):
+	def __init__(self, eng_nm, chn_nm, dict_no, db_type, length, 
+	is_key, is_nullable, table_eng_nm, table_chn_nm, parm_no, parm_nm):
 		"""字段信息初始化方法"""
 		#字段英文名
 		self.eng_nm = eng_nm
@@ -19,4 +20,10 @@ class FieldInfo():
 		self.is_nullable = is_nullable
 		#日期类型
 		#self.date_type = date_type
+		#表英文名
+		self.table_eng_nm = table_eng_nm
+		self.table_chn_nm = table_chn_nm
+		self.parm_no = parm_no
+		self.parm_nm = parm_nm
+
 		
